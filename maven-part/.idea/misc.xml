@@ -9,6 +9,7 @@
       <list>
         <option value="$PROJECT_DIR$/maven-javase-project1/pom.xml" />
         <option value="$PROJECT_DIR$/maven-javaee-project2/pom.xml" />
+        <option value="$PROJECT_DIR$/maven-pom-parent-3/pom.xml" />
       </list>
     </option>
   </component>

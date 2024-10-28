@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    引用和被引用的组件 都必须要在ioc容器中 -->
+
+<!--    1.单个构造参数注入-->
+    <bean id="userDao" class="com.garyrio.ioc02.UserDao"/>
+
+    <bean id="userService" class="com.garyrio.ioc02.UserService">
+<!--        构造参数传值 DI的配置
+            value: 直接属性值
+            ref: 引用其他的bean  bean的id值
+-->
+        <constructor-arg ref="userDao"/>
+    </bean>
+
+<!--    2.多个构造参数注入-->
+    <bean id="userService1" class="com.garyrio.ioc02.UserService">
+<!--        1.按构造参数顺序填写值
+            2.按照参数名字，不用考虑顺序 name [推荐]
+            3.通过参数的下角标顺序，从0开始，index
+-->
+        <constructor-arg name="userDao" ref="userDao"/>
+        <constructor-arg name="age" value="18"/>
+        <constructor-arg name="name" value="zhangsan"/>
+    </bean>
+
+<!--    3.出发set方法进行注入-->
+    <bean id="movieFinder" class="com.garyrio.ioc02.MovieFinder"/>
+    <bean id="simpleMovieLister" class="com.garyrio.ioc02.SimpleMovieLister">
+<!--        name: [属性名] set方法去掉set首字母小写 -->
+        <property name="movieName" value="肖申克的救赎"/>
+        <property name="movieFinder" ref="movieFinder"/>
+    </bean>
+
+
+</beans>

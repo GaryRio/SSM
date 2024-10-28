@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    组件的信息 ioc的配置 -> applicationContext读取了 -> 实例化对象 -->
+    <bean id="happyComponent" class="com.garyrio.ioc03.HappyComponent"/>
+<!--    可以指定初始化方法init-method，销毁方法destroy-method
+        spring ioc容器就会在对应的时间节点回调对应的方法-->
+    <bean id="javaBean" class="com.garyrio.ioc03.JavaBean" init-method="init" destroy-method="destroy"/>
+<!--    scope属性：默认值为单例(singleton)只会创建一个对象，可以设置为多例(prototype)每次getBean()都会创建一个对象-->
+    <bean id="javaBean2" class="com.garyrio.ioc03.JavaBean2" scope="prototype"/>
+
+<!--    通过标准化工厂，封装实例化过程，利于整合第三方框架-->
+<!--    id: getObject()返回的对象标识
+            工厂Bean的标识id是 &id
+        class: 标准化工厂类
+-->
+    <bean id="javaBean3" class="com.garyrio.ioc03.JavaBeanFactoryBean"/>
+
+</beans>

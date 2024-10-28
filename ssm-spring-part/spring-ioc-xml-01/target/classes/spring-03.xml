@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!--    组件的信息 ioc的配置 -> applicationContext读取了 -> 实例化对象 -->
+    <bean id="happyComponent" class="com.garyrio.ioc03.HappyComponent"/>
+<!--    可以指定初始化方法init-method，销毁方法destroy-method
+        spring ioc容器就会在对应的时间节点回调对应的方法-->
+    <bean id="javaBean" class="com.garyrio.ioc03.JavaBean" init-method="init" destroy-method="destroy"/>
+</beans>

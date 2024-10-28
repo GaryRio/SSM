@@ -6,9 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="maven-javaee-project2" />
-        <module name="maven-javase-project1" />
-        <module name="child1" />
+        <module name="spring-ioc-xml-01" />
       </profile>
     </annotationProcessing>
   </component>
