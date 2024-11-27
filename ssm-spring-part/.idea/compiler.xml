@@ -13,6 +13,7 @@
         <module name="spring-ioc-xml-practice-02" />
         <module name="spring-ioc-annotation-03" />
         <module name="spring-test-annotation-06" />
+        <module name="spring-tx-annotation-09" />
         <module name="spring-ioc-java-04" />
       </profile>
     </annotationProcessing>

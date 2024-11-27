@@ -2,6 +2,7 @@ package com.garyrio.advice;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Modifier;
@@ -43,6 +44,7 @@ import java.lang.reflect.Modifier;
 
 @Component
 @Aspect
+@Order(20) //设置指定优先级，值越小，优先级越高
 public class LogAdvice {
     /**
      * TODO: 切点表达式
@@ -64,7 +66,22 @@ public class LogAdvice {
      *      模糊：(..) 有无参数都可以
      *      部分模糊
      */
-    @Before("execution(* com..impl.*.*(..))")
+
+    /**
+     * 切点表达式的提取和复用
+     *   1.当前类中提取
+     *      定义一个空方法
+     *      注解
+     *      @Pointcut()
+     *      增强注解中引用切点表达式的方法即可
+     *   2.创建一个存储切点的类（推荐）
+     *      单独维护切点表达式
+     *      其他类的切点方法 类的全限定符.方法名()
+     */
+
+
+
+    @Before("com.garyrio.pointcut.MyPointCut.pc()")
     public void start(JoinPoint joinPoint) {
         //1. 获取方法所属类的信息
         String className = joinPoint.getTarget().getClass().getSimpleName();
@@ -77,16 +94,16 @@ public class LogAdvice {
         System.out.println("start");
     }
 
-    @AfterReturning(value = "execution(* com.garyrio.service.impl.*.*(..))", returning = "result")
+    @AfterReturning(value = "com.garyrio.pointcut.MyPointCut.pc()" , returning = "result")
     public void afterReturning(JoinPoint joinPoint, Object result) {
         System.out.println("afterReturning");
     }
-    @After("execution(* com.garyrio.service.impl.*.*(..))")
+    @After("com.garyrio.pointcut.MyPointCut.pc()")
     public void after(JoinPoint joinPoint) {
         System.out.println("after");
     }
 
-    @AfterThrowing(value = "execution(* com.garyrio.service.impl.*.*(..))", throwing = "throwable")
+    @AfterThrowing(value = "com.garyrio.pointcut.MyPointCut.pc()", throwing = "throwable")
     public void error(JoinPoint joinPoint, Throwable throwable) {
         System.out.println("error");
     }
