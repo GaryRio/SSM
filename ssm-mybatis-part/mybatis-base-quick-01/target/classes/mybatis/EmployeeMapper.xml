@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace等于mapper接口类的全限定名,这样实现对应 -->
+<mapper namespace="com.garyrio.mapper.EmployeeMapper">
+<!--    声明标签写SQL语句-->
+<!--    id对应方法名，resultType对应返回值类型-->
+<!--    不要重载，mapper.xml无法完成映射-->
+    <select id="queryById" resultType="com.garyrio.pojo.Employee">
+<!--        #{id}是动态传进来的参数-->
+        select emp_id empId, emp_name empName, emp_salary empSalary
+        from t_emp
+        where emp_id = #{id}
+    </select>
+
+</mapper>
