@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--    读取外部配置文件 .properties -> value = ${key} -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="url" value="${garyrio.url}"/>
+        <property name="driverClassName" value="${garyrio.driver}"/>
+        <property name="username" value="${garyrio.username}"/>
+        <property name="password" value="${garyrio.password}"/>
+    </bean>
+
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+<!--    dao 配置 di jdbcTemplate-->
+    <bean id="userDao" class="com.garyrio.dao.Impl.UserDaoImpl">
+        <property name="jdbcTemplate" ref="jdbcTemplate"/>
+    </bean>
+<!--    service 配置 di userDao-->
+    <bean id="userService" class="com.garyrio.service.Impl.UserServiceImpl">
+        <property name="userDao" ref="userDao"/>
+    </bean>
+<!--    controller 配置 di userService-->
+    <bean id="userController" class="com.garyrio.controller.UserController">
+        <property name="userService" ref="userService"/>
+    </bean>
+</beans>

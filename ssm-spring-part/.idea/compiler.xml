@@ -7,6 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="spring-ioc-xml-01" />
+        <module name="spring-ioc-practice-05" />
+        <module name="spring-aop-annotation-08" />
+        <module name="spring-aop-annotation-07" />
+        <module name="spring-ioc-xml-practice-02" />
+        <module name="spring-ioc-annotation-03" />
+        <module name="spring-test-annotation-06" />
+        <module name="spring-ioc-java-04" />
       </profile>
     </annotationProcessing>
   </component>
