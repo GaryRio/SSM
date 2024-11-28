@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.garyrio.mapper.EmployeeMapper">
+    <delete id="deleteById">
+        delete from t_emp where emp_id = #{id}
+    </delete>
+
+<!--    resultType语法：1.类的全限定符
+           2.别名简称
+           int -> _int
+           Integer -> int
+           Map -> map 小写即可
+           可以给类单独定义别名
+            <typeAliases>
+                <typeAlias type="com.garyrio.pojo.Employee" alias="Employee"/>
+            </typeAliases>
+           批量设置，别名就是类的首字符小写
+            <typeAliases>
+                <package name="com.garyrio.pojo"/>
+            </typeAliases>
+
+-->
+    <select id="queryNameById" resultType="string">
+        select emp_name from t_emp where emp_id = #{id}
+    </select>
+
+    <select id="querySalaryById" resultType="double">
+        select emp_name from t_emp where emp_id = #{id}
+    </select>
+
+    <select id="queryById" resultType="com.garyrio.pojo.Employee">
+        select *
+        from t_emp
+        where emp_id = #{id}
+    </select>
+
+    <select id="selectEmpNameAndMaxSalary" resultType="map">
+        select
+            emp_name 姓名,
+            emp_salary 工资,
+            (select avg(emp_salary) from t_emp) 平均工资
+        from t_emp
+        where emp_salary = (
+        select max(emp_salary) from t_emp
+        )
+    </select>
+
+<!--    插入，并且主键回显-->
+<!--
+       useGeneratedKeys="true" 想要数据库自动增长的主键值
+       keyColumn="emp_id" 主键列
+       keyProperty="empId" 接受主键列值的属性
+-->
+    <insert id="insertEmp" useGeneratedKeys="true" keyColumn="emp_id" keyProperty="empId">
+        insert into t_emp(emp_name, emp_salary)
+        values (#{empName}, #{empSalary})
+    </insert>
+</mapper>
