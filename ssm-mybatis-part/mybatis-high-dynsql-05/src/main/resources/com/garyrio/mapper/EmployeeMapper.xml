@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.garyrio.mapper.EmployeeMapper">
+
+    <select id="query" resultType="employee">
+        select * from t_emp
+        <where>
+            <if test="name != null">
+                emp_name = #{name}
+            </if>
+            <if test="salary != null and salary &gt; 100">
+                emp_salary = #{salary}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="queryChoose" resultType="employee">
+        select * from t_emp
+        where
+        <choose>
+            <when test="name != null">
+                emp_name = #{name}
+            </when>
+            <when test="salary != null">
+                emp_salary = #{salary}
+            </when>
+            <otherwise>
+                1 = 1
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="queryBatch" resultType="employee">
+        select * from t_emp
+        where emp_id in
+<!--        collection: 遍历的数据
+            open: 遍历之前要追加的字符串
+            close: 遍历结束要追加的字符串
+            separator: 分隔符
+            item: 获取每个遍历项
+-->
+        <foreach collection="ids" open="(" separator="," close=")" item="id">
+            #{id}
+        </foreach>
+    </select>
+
+    <update id="update" >
+        update t_emp
+        <set>
+            <if test="empName != null">
+                emp_name = #{empName}
+            </if>
+            <if test="empSalary != null">
+                emp_slary = #{empSalary}
+            </if>
+        </set>
+        where emp_id = #{empId}
+    </update>
+</mapper>
